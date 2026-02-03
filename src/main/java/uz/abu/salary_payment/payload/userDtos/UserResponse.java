@@ -1,10 +1,11 @@
-package uz.abu.salary_payment.payload;
+package uz.abu.salary_payment.payload.userDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import uz.abu.salary_payment.entity.User;
+import uz.abu.salary_payment.payload.workerDtos.WorkerResponse;
 
 import java.time.LocalDateTime;
 

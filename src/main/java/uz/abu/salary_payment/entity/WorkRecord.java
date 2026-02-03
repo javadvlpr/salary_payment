@@ -2,6 +2,7 @@ package uz.abu.salary_payment.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
@@ -21,6 +22,8 @@ public class WorkRecord {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+    @NonNull
     private Integer quantity;
+    @CreationTimestamp
     private LocalDate date;
 }

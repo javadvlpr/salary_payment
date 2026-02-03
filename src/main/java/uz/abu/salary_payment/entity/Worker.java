@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity(name = "worker")
 @AllArgsConstructor
@@ -15,6 +18,9 @@ public class Worker {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
+    @NonNull
     private String fullName;
     private boolean isActive;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 }

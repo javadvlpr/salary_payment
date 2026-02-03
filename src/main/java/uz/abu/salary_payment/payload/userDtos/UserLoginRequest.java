@@ -1,4 +1,4 @@
-package uz.abu.salary_payment.payload;
+package uz.abu.salary_payment.payload.userDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequestDto {
+public class UserLoginRequest {
     private String username;
     private String password;
 }

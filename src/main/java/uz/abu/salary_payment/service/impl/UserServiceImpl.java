@@ -11,13 +11,16 @@ import uz.abu.salary_payment.common.AuthenticationException;
 import uz.abu.salary_payment.common.DataNotFoundException;
 import uz.abu.salary_payment.entity.User;
 import uz.abu.salary_payment.payload.JwtResponse;
-import uz.abu.salary_payment.payload.UserLoginRequest;
-import uz.abu.salary_payment.payload.UserResponse;
+import uz.abu.salary_payment.payload.userDtos.UserLoginRequest;
+import uz.abu.salary_payment.payload.userDtos.UserResponse;
 import uz.abu.salary_payment.repository.UserRepository;
 import uz.abu.salary_payment.service.JwtService;
 import uz.abu.salary_payment.service.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +30,12 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+
+    @Override
+    public User save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
 
     @Override
     public JwtResponse login(UserLoginRequest userLoginRequest) {
@@ -55,7 +64,6 @@ public class UserServiceImpl implements UserService {
     public List<UserResponse> getAll(Integer per_page, Integer page) {
         int offset = (page - 1) * per_page;
         List<User> users = userRepository.findAll(offset, per_page);
-
         return users.stream().map(UserResponse::from).toList();
     }
 
@@ -71,9 +79,47 @@ public class UserServiceImpl implements UserService {
                 refreshToken,
                 UserResponse.from(user));
     }
+
+    @Override
+    public Map<String, String> generateUsernameAndPassword(String fullName) {
+        Map<String, String> credentials = new HashMap<>();
+
+        // 1. Username yaratish (full name dan qisqartma)
+        String username = createUsername(fullName);
+
+        // 2. Password yaratish
+        String password = generateRandomPassword(8); // 8 belgidan iborat parol
+
+        credentials.put("username", username);
+        credentials.put("password", password);
+
+        return credentials;
+    }
+
     private void checkPassword(String dtoPassword, String daoPassword) {
         if (!passwordEncoder.matches(dtoPassword, daoPassword))
             throw new DataNotFoundException("username or password incorrect");
 
+    }
+
+    private String createUsername(String fullName) {
+        if (fullName == null || fullName.isEmpty()) {
+            return "user" + new Random().nextInt(1000); // fallback
+        }
+        // Foydalanuvchi ismi: birinchi ism + oxirgi familiya
+        String[] parts = fullName.trim().split("\\s+");
+        String firstName = parts[0].toLowerCase();
+        String lastName = parts.length > 1 ? parts[parts.length - 1].toLowerCase() : "";
+        return firstName + "." + lastName;
+    }
+
+    private String generateRandomPassword(int length) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            sb.append(chars.charAt(random.nextInt(chars.length())));
+        }
+        return sb.toString();
     }
 }

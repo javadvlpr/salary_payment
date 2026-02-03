@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.abu.salary_payment.payload.JwtResponse;
-import uz.abu.salary_payment.payload.UserLoginRequest;
+import uz.abu.salary_payment.payload.userDtos.UserLoginRequest;
 import uz.abu.salary_payment.service.UserService;
 
 @RestController
