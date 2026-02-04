@@ -11,9 +11,10 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(nativeQuery = true, value = """
-            select *
-            from product
-            where is_active = true
+            SELECT *
+            FROM product
+            WHERE is_active = true
+            ORDER BY created_at DESC
             limit :per_page offset :offset
             """)
     List<Product> findAll(Integer per_page, Integer offset);

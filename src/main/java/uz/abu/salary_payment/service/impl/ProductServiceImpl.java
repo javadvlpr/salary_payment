@@ -51,4 +51,9 @@ public class ProductServiceImpl implements ProductService {
         Product save = productRepository.save(productNotFound);
         return ProductResponse.from(save);
     }
+
+    @Override
+    public Product getProductEntityById(Long id) {
+        return productRepository.findByIdAndIsActiveTrue(id).orElseThrow(() -> new DataNotFoundException("Product not found"));
+    }
 }

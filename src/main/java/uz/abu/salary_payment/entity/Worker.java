@@ -20,7 +20,7 @@ public class Worker {
     private Long id;
     @NonNull
     private String fullName;
-    private boolean isActive;
+    private Boolean isActive;
     @CreationTimestamp
     private LocalDateTime createdAt;
 }

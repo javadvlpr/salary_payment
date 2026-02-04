@@ -1,4 +1,4 @@
-package uz.abu.salary_payment.payload.workerDtos;
+package uz.abu.salary_payment.payload;
 
 import lombok.*;
 import uz.abu.salary_payment.entity.Worker;
@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class WorkerResponse {
+    private Long id;
     private String fullName;
     private boolean isActive;
     private LocalDateTime createdAt;
@@ -17,8 +18,9 @@ public class WorkerResponse {
     {
         if (worker == null) return null;
         return WorkerResponse.builder()
+                .id(worker.getId())
                 .fullName(worker.getFullName())
-                .isActive(worker.isActive())
+                .isActive(worker.getIsActive())
                 .createdAt(worker.getCreatedAt())
                 .build();
     }

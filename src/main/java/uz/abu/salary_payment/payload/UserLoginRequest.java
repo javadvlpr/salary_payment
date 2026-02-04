@@ -1,4 +1,4 @@
-package uz.abu.salary_payment.payload.userDtos;
+package uz.abu.salary_payment.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

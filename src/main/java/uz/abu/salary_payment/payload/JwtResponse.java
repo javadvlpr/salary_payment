@@ -2,7 +2,6 @@ package uz.abu.salary_payment.payload;
 
 import lombok.Builder;
 import lombok.Data;
-import uz.abu.salary_payment.payload.userDtos.UserResponse;
 
 @Data
 @Builder

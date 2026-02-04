@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import uz.abu.salary_payment.payload.workerDtos.WorkerCreateResponse;
-import uz.abu.salary_payment.payload.workerDtos.WorkerResponse;
+import uz.abu.salary_payment.payload.WorkerCreateResponse;
+import uz.abu.salary_payment.payload.WorkerResponse;
 import uz.abu.salary_payment.service.WorkerService;
 
 import java.util.List;

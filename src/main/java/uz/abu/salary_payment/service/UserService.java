@@ -2,8 +2,8 @@ package uz.abu.salary_payment.service;
 
 import uz.abu.salary_payment.entity.User;
 import uz.abu.salary_payment.payload.JwtResponse;
-import uz.abu.salary_payment.payload.userDtos.UserLoginRequest;
-import uz.abu.salary_payment.payload.userDtos.UserResponse;
+import uz.abu.salary_payment.payload.UserLoginRequest;
+import uz.abu.salary_payment.payload.UserResponse;
 
 import java.util.List;
 import java.util.Map;

@@ -1,5 +1,6 @@
 package uz.abu.salary_payment.service;
 
+import uz.abu.salary_payment.entity.Product;
 import uz.abu.salary_payment.payload.ProductResponse;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public interface ProductService {
     ProductResponse getProductById(Long id);
     List<ProductResponse> getProducts(Integer per_page, Integer page);
     ProductResponse deleteProduct(Long id);
+    Product getProductEntityById(Long id);
 }

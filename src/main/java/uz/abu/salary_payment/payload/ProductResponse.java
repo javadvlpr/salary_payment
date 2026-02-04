@@ -13,13 +13,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class ProductResponse {
+    private Long id;
     private String name;
     private LocalDateTime updatedAt;
-        public static ProductResponse from(Product product)
-        {
-            return ProductResponse.builder()
-                    .name(product.getName())
-                    .updatedAt(product.getUpdatedAt())
-                    .build();
-        }
+
+    public static ProductResponse from(Product product) {
+        return ProductResponse.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .updatedAt(product.getUpdatedAt())
+                .build();
+    }
 }

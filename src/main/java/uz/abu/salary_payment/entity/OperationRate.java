@@ -26,4 +26,5 @@ public class OperationRate {
     private Double pricePerUnit;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+    private Boolean isActive;
 }

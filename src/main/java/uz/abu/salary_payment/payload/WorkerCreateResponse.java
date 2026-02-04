@@ -1,10 +1,9 @@
-package uz.abu.salary_payment.payload.workerDtos;
+package uz.abu.salary_payment.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.abu.salary_payment.entity.Worker;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class WorkerCreateResponse {
+    private Long id;
     private String fullName;
     private String username;
     private String password;

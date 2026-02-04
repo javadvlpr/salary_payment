@@ -26,4 +26,5 @@ public class WorkRecord {
     private Integer quantity;
     @CreationTimestamp
     private LocalDate date;
+    private Boolean isActive;
 }

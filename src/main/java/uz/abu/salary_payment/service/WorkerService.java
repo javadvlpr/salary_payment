@@ -1,7 +1,7 @@
 package uz.abu.salary_payment.service;
 
-import uz.abu.salary_payment.payload.workerDtos.WorkerCreateResponse;
-import uz.abu.salary_payment.payload.workerDtos.WorkerResponse;
+import uz.abu.salary_payment.payload.WorkerCreateResponse;
+import uz.abu.salary_payment.payload.WorkerResponse;
 
 import java.util.List;
 

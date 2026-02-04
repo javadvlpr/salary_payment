@@ -1,11 +1,10 @@
-package uz.abu.salary_payment.payload.userDtos;
+package uz.abu.salary_payment.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import uz.abu.salary_payment.entity.User;
-import uz.abu.salary_payment.payload.workerDtos.WorkerResponse;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class UserResponse {
+    private Long id;
     private String username;
     private String role;
     private WorkerResponse worker;
@@ -21,6 +21,7 @@ public class UserResponse {
 
     public static UserResponse from(User user) {
         return UserResponse.builder()
+                .id(user.getId())
                 .username(user.getUsername())
                 .role(user.getRole().name())
                 .worker(WorkerResponse.from(user.getWorker()))

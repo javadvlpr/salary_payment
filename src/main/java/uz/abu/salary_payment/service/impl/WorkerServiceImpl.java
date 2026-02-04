@@ -6,8 +6,8 @@ import uz.abu.salary_payment.common.DataNotFoundException;
 import uz.abu.salary_payment.entity.User;
 import uz.abu.salary_payment.entity.Worker;
 import uz.abu.salary_payment.entity.enums.UserRole;
-import uz.abu.salary_payment.payload.workerDtos.WorkerCreateResponse;
-import uz.abu.salary_payment.payload.workerDtos.WorkerResponse;
+import uz.abu.salary_payment.payload.WorkerCreateResponse;
+import uz.abu.salary_payment.payload.WorkerResponse;
 import uz.abu.salary_payment.repository.WorkerRepository;
 import uz.abu.salary_payment.service.UserService;
 import uz.abu.salary_payment.service.WorkerService;
@@ -39,7 +39,7 @@ public class WorkerServiceImpl implements WorkerService {
                 .fullName(fullName)
                 .username(save.getUsername())
                 .password(password)
-                .isActive(worker.isActive())
+                .isActive(worker.getIsActive())
                 .createdAt(worker.getCreatedAt())
                 .build();
     }
@@ -63,9 +63,10 @@ public class WorkerServiceImpl implements WorkerService {
         List<User> allUsersEntity = userService.getAllUsersEntity(per_page, offset);
         return allUsersEntity.stream()
                 .map(user -> WorkerCreateResponse.builder()
+                        .id(user.getWorker().getId())
                         .fullName(user.getWorker().getFullName())
                         .username(user.getUsername())
-                        .isActive(user.getWorker().isActive())
+                        .isActive(user.getWorker().getIsActive())
                         .createdAt(user.getWorker().getCreatedAt())
                         .build())
                 .toList();
@@ -74,7 +75,7 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public WorkerResponse deleteWorker(Long id) {
         Worker worker = workerRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Worker not found"));
-        worker.setActive(false);
+        worker.setIsActive(false);
         return WorkerResponse.from(workerRepository.save(worker));
     }
 }
