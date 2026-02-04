@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.abu.salary_payment.payload.JwtResponse;
 import uz.abu.salary_payment.payload.userDtos.UserLoginRequest;
@@ -18,19 +17,14 @@ public class AuthController {
     private final UserService userService;
 
     @Operation(description = "Login")
-    @PutMapping("/sign-in")
+    @PostMapping("/sign-in")
     public ResponseEntity<JwtResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
         return ResponseEntity.ok(userService.login(userLoginRequest));
     }
 
     @Operation(description = "Refresh token")
-    @PutMapping("/refresh-token")
+    @PostMapping("/refresh-token")
     public ResponseEntity<JwtResponse> refreshToken(@RequestParam String refreshToken) {
         return ResponseEntity.ok(userService.refreshAccessToken(refreshToken));
-    }
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/admin")
-    public String adminTest() {
-        return "OK";
     }
 }

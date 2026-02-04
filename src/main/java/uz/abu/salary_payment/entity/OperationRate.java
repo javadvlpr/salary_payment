@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 public class OperationRate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
     private Long id;
     @Enumerated(EnumType.STRING)
     @Column(name = "operation_type")

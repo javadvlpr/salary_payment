@@ -4,10 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import uz.abu.salary_payment.payload.userDtos.UserResponse;
 import uz.abu.salary_payment.service.UserService;
 
@@ -21,7 +19,8 @@ public class UserController {
     private final UserService userService;
 
     @Operation(description = "Get All Users")
-    @PutMapping("/get-all")
+    @GetMapping("/get-all")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponse>> getAllUsers(@RequestParam Integer per_page, @RequestParam Integer page) {
         return ResponseEntity.ok(userService.getAll(per_page, page));
     }

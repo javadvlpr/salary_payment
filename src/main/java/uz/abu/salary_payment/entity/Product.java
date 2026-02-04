@@ -18,11 +18,11 @@ import java.time.LocalDateTime;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
     private Long id;
     @NonNull
     private String name;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+    private Boolean isActive;
 
 }

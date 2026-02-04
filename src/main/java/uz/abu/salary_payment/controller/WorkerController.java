@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import uz.abu.salary_payment.payload.workerDtos.WorkerCreateResponse;
 import uz.abu.salary_payment.payload.workerDtos.WorkerResponse;
 import uz.abu.salary_payment.service.WorkerService;
 
@@ -19,26 +20,35 @@ public class WorkerController {
     private final WorkerService workerService;
 
     @Operation(description = "Add worker")
-    @PutMapping("/add")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<WorkerResponse> addWorker(@RequestParam String fullName) {
+    @PostMapping("/add")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
+    public ResponseEntity<WorkerCreateResponse> addWorker(@RequestParam String fullName) {
         return ResponseEntity.ok(workerService.addWorker(fullName));
     }
 
     @Operation(description = "Get worker by Id")
-    @PutMapping("/{workerId}")
+    @GetMapping("/{workerId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<WorkerResponse> getWorkerById(@PathVariable Long workerId) {
         return ResponseEntity.ok(workerService.getWorkerById(workerId));
     }
 
     @Operation(description = "Get workers")
-    @PutMapping("/all")
-    public ResponseEntity<List<WorkerResponse>> getWorkers() {
-        return ResponseEntity.ok(workerService.getWorkers());
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
+    public ResponseEntity<List<WorkerResponse>> getWorkers(@RequestParam Integer per_page, @RequestParam Integer page) {
+        return ResponseEntity.ok(workerService.getWorkers(per_page, page));
+    }
+    @Operation(description = "Get workers for admin")
+    @GetMapping("/all-info")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<WorkerCreateResponse>> getWorkersForAdmin(@RequestParam Integer per_page, @RequestParam Integer page) {
+        return ResponseEntity.ok(workerService.getWorkersAllInfo(per_page, page));
     }
 
     @Operation(description = "Delete worker")
-    @PutMapping("/delete")
+    @PatchMapping("/delete")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<WorkerResponse> deleteWorker(@RequestParam Long workerId) {
         return ResponseEntity.ok(workerService.deleteWorker(workerId));
     }

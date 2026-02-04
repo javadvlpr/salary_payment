@@ -63,8 +63,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserResponse> getAll(Integer per_page, Integer page) {
         int offset = (page - 1) * per_page;
-        List<User> users = userRepository.findAll(offset, per_page);
+        List<User> users = userRepository.findAll(per_page, offset);
         return users.stream().map(UserResponse::from).toList();
+    }
+
+    @Override
+    public List<User> getAllUsersEntity(Integer per_page, Integer page) {
+        int offset = (page - 1) * per_page;
+        return userRepository.findAll(per_page, offset);
     }
 
     @Override

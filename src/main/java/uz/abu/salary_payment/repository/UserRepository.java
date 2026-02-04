@@ -12,6 +12,12 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findByUsername(String username);
 
-    @Query(nativeQuery = true, value = "select * from users limit :perPage offset :offset")
-    List<User> findAll(int offset, Integer perPage);
+    @Query(nativeQuery = true, value = """
+            select u.*
+            from users u
+            join worker w on u.worker_id = w.id
+            where w.is_active = true
+            limit :perPage offset :offset
+            """)
+    List<User> findAll(Integer perPage, Integer offset);
 }
