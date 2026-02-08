@@ -14,7 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             SELECT *
             FROM product
             WHERE is_active = true
-            ORDER BY created_at DESC
+            ORDER BY updated_at DESC
             limit :per_page offset :offset
             """)
     List<Product> findAll(Integer per_page, Integer offset);

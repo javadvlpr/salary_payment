@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OperationRateRequest {
-    private String operationType;
-    private Long productId;
-    private Integer pricePerUnit;
+public class TotalPayment {
+    private Integer totalAmount;
+    private Integer birchokAmount;
+    private Integer averloAmount;
+    private Integer bichuvAmount;
+    private Integer vishivkaAmount;
 }

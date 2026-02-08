@@ -26,15 +26,15 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/v3/api-docs.yaml",
-            "/auth/refresh"
     };
     private final AuthenticationUserService authenticationUserService;
     private final JwtService jwtService;
+    private final CorsConfig corsConfig;
 
-    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfig.corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(WHITE_LIST).permitAll()
                         .anyRequest().authenticated()
@@ -42,8 +42,10 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .addFilterBefore(new JwtTokenFilter(authenticationUserService, jwtService),
-                        UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(
+                        new JwtTokenFilter(authenticationUserService, jwtService),
+                        UsernamePasswordAuthenticationFilter.class
+                )
                 .build();
     }
 

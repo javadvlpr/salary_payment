@@ -1,5 +1,6 @@
 package uz.abu.salary_payment.service;
 
+import uz.abu.salary_payment.entity.Worker;
 import uz.abu.salary_payment.payload.WorkerCreateResponse;
 import uz.abu.salary_payment.payload.WorkerResponse;
 
@@ -11,4 +12,5 @@ public interface WorkerService {
     List<WorkerResponse> getWorkers(Integer per_page, Integer page);
     List<WorkerCreateResponse> getWorkersAllInfo(Integer per_page, Integer page);
     WorkerResponse deleteWorker(Long id);
+    Worker getWorkerEntityById(Long id);
 }

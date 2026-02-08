@@ -60,4 +60,9 @@ public class OperationRateServiceImpl implements OperationRateService {
         OperationRate save = operationRateRepository.save(operationRate);
         return OperationRateResponse.from(save);
     }
+
+    @Override
+    public OperationRate getOperationRateEntityById(Long id) {
+        return operationRateRepository.findByIdAndIsActiveTrue(id).orElseThrow(() -> new DataNotFoundException("Operation Rate not found"));
+    }
 }

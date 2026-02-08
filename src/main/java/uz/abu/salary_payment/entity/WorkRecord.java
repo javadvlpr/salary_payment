@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity(name = "work_record")
 @AllArgsConstructor
@@ -20,11 +20,11 @@ public class WorkRecord {
     @JoinColumn(name = "worker_id")
     private Worker worker;
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @JoinColumn(name = "operation_rate_id")
+    private OperationRate operationRate;
     @NonNull
     private Integer quantity;
     @CreationTimestamp
-    private LocalDate date;
+    private LocalDateTime createdAt;
     private Boolean isActive;
 }

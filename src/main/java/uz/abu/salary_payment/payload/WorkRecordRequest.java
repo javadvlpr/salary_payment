@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OperationRateRequest {
-    private String operationType;
-    private Long productId;
-    private Integer pricePerUnit;
+public class WorkRecordRequest {
+    private Long WorkerId;
+    private Long OperationRateId;
+    private Integer quantity;
 }

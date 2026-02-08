@@ -15,7 +15,7 @@ public interface OperationRateRepository extends JpaRepository<OperationRate, Lo
             SELECT *
             FROM operation_rate
             WHERE is_active = true
-            ORDER BY created_at DESC
+            ORDER BY updated_at DESC
             OFFSET :offset LIMIT :per_page ;
             """)
     List<OperationRate> findAll(Integer per_page, Integer offset);

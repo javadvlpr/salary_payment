@@ -14,7 +14,7 @@ public class OperationRateResponse {
     private Long id;
     private String operationType;
     private Long productId;
-    private Double pricePerUnit;
+    private Integer pricePerUnit;
 
     public static OperationRateResponse from(OperationRate operationRate) {
         return OperationRateResponse.builder()

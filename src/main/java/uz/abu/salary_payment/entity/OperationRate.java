@@ -23,7 +23,7 @@ public class OperationRate {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-    private Double pricePerUnit;
+    private Integer pricePerUnit;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
     private Boolean isActive;

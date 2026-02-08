@@ -78,4 +78,9 @@ public class WorkerServiceImpl implements WorkerService {
         worker.setIsActive(false);
         return WorkerResponse.from(workerRepository.save(worker));
     }
+
+    @Override
+    public Worker getWorkerEntityById(Long id) {
+        return workerRepository.findByIdAndIsActiveTrue(id).orElseThrow(() -> new DataNotFoundException("Worker not found"));
+    }
 }
