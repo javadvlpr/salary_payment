@@ -52,14 +52,14 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public List<WorkerResponse> getWorkers(Integer per_page, Integer page) {
-        int offset = (page - 1) * per_page;
+        int offset = page * per_page;
         List<Worker> workers = workerRepository.findAll(per_page, offset);
         return workers.stream().map(WorkerResponse::from).toList();
     }
 
     @Override
     public List<WorkerCreateResponse> getWorkersAllInfo(Integer per_page, Integer page) {
-        int offset = (page - 1) * per_page;
+        int offset = page * per_page;
         List<User> allUsersEntity = userService.getAllUsersEntity(per_page, offset);
         return allUsersEntity.stream()
                 .map(user -> WorkerCreateResponse.builder()

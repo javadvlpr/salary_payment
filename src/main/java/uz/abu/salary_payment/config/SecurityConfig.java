@@ -21,16 +21,19 @@ import uz.abu.salary_payment.service.JwtService;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     private static final String[] WHITE_LIST = new String[]{
             "/auth/**",
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/v3/api-docs.yaml",
     };
+
     private final AuthenticationUserService authenticationUserService;
     private final JwtService jwtService;
     private final CorsConfig corsConfig;
 
+    @Bean // ✅ Bu annotation muhim!
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)

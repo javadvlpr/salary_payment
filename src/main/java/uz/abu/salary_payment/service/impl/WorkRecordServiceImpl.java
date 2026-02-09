@@ -45,7 +45,7 @@ public class WorkRecordServiceImpl implements WorkRecordService {
 
     @Override
     public List<WorkRecordResponse> getAllWorkRecords(Integer per_page, Integer page) {
-        int offset = (page - 1) * per_page;
+        int offset = page * per_page;
         List<WorkRecord> all = workRecordRepository.findAll(per_page, offset);
         return all.stream().map(WorkRecordResponse::from).toList();
     }

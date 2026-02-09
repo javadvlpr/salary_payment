@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductResponse> getProducts(Integer per_page, Integer page) {
-        int offset = (page - 1) * per_page;
+        int offset = page * per_page;
         List<Product> products = productRepository.findAll(per_page, offset);
         return products.stream().map(ProductResponse::from).toList();
     }

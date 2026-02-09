@@ -48,7 +48,7 @@ public class OperationRateServiceImpl implements OperationRateService {
 
     @Override
     public List<OperationRateResponse> getAllOperationRate(Integer per_page, Integer page) {
-        int offset = (page - 1) * per_page;
+        int offset = page * per_page;
         List<OperationRate> operationRates = operationRateRepository.findAll(per_page, offset);
         return operationRates.stream().map(OperationRateResponse::from).toList();
     }
