@@ -21,4 +21,11 @@ public interface UserRepository extends JpaRepository<User,Long> {
             limit :perPage offset :offset
             """)
     List<User> findAll(Integer perPage, Integer offset);
+
+    @Query(nativeQuery = true, value = """
+            SELECT u.*
+            FROM users u
+            JOIN worker w on u.worker_id = w.id
+            """)
+    Optional<User> findByWorkerId(Long workerId);
 }

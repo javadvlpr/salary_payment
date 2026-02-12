@@ -1,5 +1,6 @@
 package uz.abu.salary_payment.service;
 
+import org.jspecify.annotations.Nullable;
 import uz.abu.salary_payment.entity.WorkRecord;
 import uz.abu.salary_payment.payload.TotalPayment;
 import uz.abu.salary_payment.payload.WorkRecordRequest;
@@ -15,4 +16,7 @@ public interface WorkRecordService {
     WorkRecordResponse deleteWorkRecord(Long id);
     WorkRecord getWorkRecordEntityById(Long id);
     TotalPayment getTotalPayment(LocalDate startDate);
+
+    List<WorkRecordResponse> getMyWorkRecords(Long workerId);
+
 }

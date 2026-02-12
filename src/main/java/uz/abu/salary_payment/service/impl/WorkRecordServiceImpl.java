@@ -84,4 +84,10 @@ public class WorkRecordServiceImpl implements WorkRecordService {
                 .vishivkaAmount(vishivkaAmount)
                 .build();
     }
+
+    @Override
+    public List<WorkRecordResponse> getMyWorkRecords(Long workerId) {
+        List<WorkRecord> allByWorkerIdAndIsActiveTrue = workRecordRepository.findAllByWorkerIdAndIsActiveTrue(workerId);
+        return allByWorkerIdAndIsActiveTrue.stream().map(WorkRecordResponse::from).toList();
+    }
 }

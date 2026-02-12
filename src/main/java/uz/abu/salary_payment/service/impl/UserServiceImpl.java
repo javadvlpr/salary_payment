@@ -53,14 +53,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse getCurrentUser(String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new DataNotFoundException("User not found!"));
-
-        return UserResponse.from(user);
-    }
-
-    @Override
     public List<UserResponse> getAll(Integer per_page, Integer page) {
         int offset = page * per_page;
         List<User> users = userRepository.findAll(per_page, offset);
@@ -100,6 +92,16 @@ public class UserServiceImpl implements UserService {
         credentials.put("password", password);
 
         return credentials;
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public User getUserByWorkerId(Long workerId) {
+        return userRepository.findByWorkerId(workerId).orElseThrow(() -> new DataNotFoundException("User not found for worker id: " + workerId));
     }
 
     private void checkPassword(String dtoPassword, String daoPassword) {

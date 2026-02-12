@@ -1,6 +1,7 @@
 package uz.abu.salary_payment.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.abu.salary_payment.common.DataNotFoundException;
 import uz.abu.salary_payment.entity.User;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class WorkerServiceImpl implements WorkerService {
     private final WorkerRepository workerRepository;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
     @Override
     public WorkerCreateResponse addWorker(String fullName) {
         Worker worker = workerRepository.save(Worker.builder()
@@ -66,6 +68,7 @@ public class WorkerServiceImpl implements WorkerService {
                         .id(user.getWorker().getId())
                         .fullName(user.getWorker().getFullName())
                         .username(user.getUsername())
+                        .password(user.getPassword())
                         .isActive(user.getWorker().getIsActive())
                         .createdAt(user.getWorker().getCreatedAt())
                         .build())
@@ -76,6 +79,8 @@ public class WorkerServiceImpl implements WorkerService {
     public WorkerResponse deleteWorker(Long id) {
         Worker worker = workerRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Worker not found"));
         worker.setIsActive(false);
+        User userByWorkerId = userService.getUserByWorkerId(worker.getId());
+        userService.deleteUser(userByWorkerId.getId());
         return WorkerResponse.from(workerRepository.save(worker));
     }
 

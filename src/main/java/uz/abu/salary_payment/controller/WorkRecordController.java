@@ -29,6 +29,7 @@ public class WorkRecordController {
 
     @GetMapping("/{workRecordId}")
     @Operation(description = "Get work record by Id")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<WorkRecordResponse> getWorkRecordById(@PathVariable Long workRecordId) {
         return ResponseEntity.ok(workRecordService.getWorkRecordById(workRecordId));
     }
@@ -51,5 +52,11 @@ public class WorkRecordController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<TotalPayment> getTotalPayment(@RequestParam String startDate) {
         return ResponseEntity.ok(workRecordService.getTotalPayment(java.time.LocalDate.parse(startDate)));
+    }
+
+    @GetMapping("/my-records/{workerId}")
+    @Operation(description = "Get my work records")
+    public  ResponseEntity<List<WorkRecordResponse>> getMyWorkRecords(@PathVariable Long workerId) {
+        return ResponseEntity.ok(workRecordService.getMyWorkRecords(workerId));
     }
 }

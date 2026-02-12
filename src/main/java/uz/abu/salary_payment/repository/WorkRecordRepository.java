@@ -27,11 +27,11 @@ public interface WorkRecordRepository extends JpaRepository<WorkRecord, Long> {
     List<WorkRecord> findAll(Integer per_page, Integer offset);
 
     @Query(nativeQuery = true, value = """
-            SELECT *
+            SELECT wr.*
             FROM work_record wr
-            JOIN operation_rate or
-            ON wr.operation_rate_id = or.id
-            WHERE or.operation_type = :name
+            JOIN operation_rate ort
+            ON wr.operation_rate_id = ort.id
+            WHERE ort.operation_type = :name
             AND wr.created_at >= :startDate
             AND wr.is_active = true
             """)
@@ -44,4 +44,6 @@ public interface WorkRecordRepository extends JpaRepository<WorkRecord, Long> {
             AND is_active = true
             """)
     List<WorkRecord> findAllByCreatedAtAfterAndIsActiveTrue(LocalDate startDate);
+
+    List<WorkRecord> findAllByWorkerIdAndIsActiveTrue(Long workerId);
 }
