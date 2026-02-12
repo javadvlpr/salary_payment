@@ -59,4 +59,9 @@ public class WorkRecordController {
     public  ResponseEntity<List<WorkRecordResponse>> getMyWorkRecords(@PathVariable Long workerId) {
         return ResponseEntity.ok(workRecordService.getMyWorkRecords(workerId));
     }
+    @GetMapping("/my-recods-by-date/{workerId}")
+    @Operation(description = "Get my work records by date")
+    public  ResponseEntity<List<WorkRecordResponse>> getMyWorkRecordsByDate(@PathVariable Long workerId, @RequestParam String startDate) {
+        return ResponseEntity.ok(workRecordService.getMyWorkRecordsByDate(workerId, java.time.LocalDate.parse(startDate)));
+     }
 }

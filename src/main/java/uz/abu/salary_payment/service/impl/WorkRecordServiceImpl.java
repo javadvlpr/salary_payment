@@ -1,7 +1,9 @@
 package uz.abu.salary_payment.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
+import uz.abu.salary_payment.common.DataNotFoundException;
 import uz.abu.salary_payment.entity.OperationRate;
 import uz.abu.salary_payment.entity.WorkRecord;
 import uz.abu.salary_payment.entity.Worker;
@@ -89,5 +91,11 @@ public class WorkRecordServiceImpl implements WorkRecordService {
     public List<WorkRecordResponse> getMyWorkRecords(Long workerId) {
         List<WorkRecord> allByWorkerIdAndIsActiveTrue = workRecordRepository.findAllByWorkerIdAndIsActiveTrue(workerId);
         return allByWorkerIdAndIsActiveTrue.stream().map(WorkRecordResponse::from).toList();
+    }
+
+    @Override
+    public @Nullable List<WorkRecordResponse> getMyWorkRecordsByDate(Long workerId, LocalDate parse) {
+        List<WorkRecord> allByWorkerIdAndCreatedAtAfterAndIsActiveTrue = workRecordRepository.findAllByWorkerIdAndCreatedAtAfterAndIsActiveTrue(workerId, parse).orElseThrow(() -> new DataNotFoundException("No work records found for the given date"));
+        return allByWorkerIdAndCreatedAtAfterAndIsActiveTrue.stream().map(WorkRecordResponse::from).toList();
     }
 }

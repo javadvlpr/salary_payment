@@ -46,4 +46,13 @@ public interface WorkRecordRepository extends JpaRepository<WorkRecord, Long> {
     List<WorkRecord> findAllByCreatedAtAfterAndIsActiveTrue(LocalDate startDate);
 
     List<WorkRecord> findAllByWorkerIdAndIsActiveTrue(Long workerId);
+
+    @Query(nativeQuery = true, value = """
+            SELECT *
+            FROM work_record
+            WHERE worker_id = :workerId
+            AND created_at >= :startDate
+            AND is_active = true
+            """)
+    Optional<List<WorkRecord>> findAllByWorkerIdAndCreatedAtAfterAndIsActiveTrue(Long workerId, LocalDate parse);
 }

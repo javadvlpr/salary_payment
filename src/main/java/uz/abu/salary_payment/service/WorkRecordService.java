@@ -19,4 +19,5 @@ public interface WorkRecordService {
 
     List<WorkRecordResponse> getMyWorkRecords(Long workerId);
 
+    @Nullable List<WorkRecordResponse> getMyWorkRecordsByDate(Long workerId, LocalDate parse);
 }
